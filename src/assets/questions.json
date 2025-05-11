@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "text": "What is the capital city of France?",
+    "options": ["Paris", "London", "Berlin", "Madrid"],
+    "correctAnswer": "Paris"
+  },
+  {
+    "id": 2,
+    "text": "Which planet is known as the Red Planet?",
+    "options": ["Jupiter", "Mars", "Venus", "Mercury"],
+    "correctAnswer": "Mars"
+  },
+  {
+    "id": 3,
+    "text": "What is 2 + 2?",
+    "options": ["3", "4", "5", "6"],
+    "correctAnswer": "4"
+  },
+  {
+    "id": 4,
+    "text": "Who wrote 'Romeo and Juliet'?",
+    "options": [
+      "William Shakespeare",
+      "Jane Austen",
+      "Charles Dickens",
+      "Mark Twain"
+    ],
+    "correctAnswer": "William Shakespeare"
+  },
+  {
+    "id": 5,
+    "text": "What is the largest mammal in the world?",
+    "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+    "correctAnswer": "Blue Whale"
+  }
+]
