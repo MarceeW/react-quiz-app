@@ -7,7 +7,15 @@ export const QuizContext = createContext({
     options: [""],
     correctAnswer: "",
   },
-  questions: [],
+  questions: [
+    {
+      id: 1,
+      text: "",
+      options: [""],
+      correctAnswer: "",
+    },
+  ],
   currentQuestionIdx: 0,
   nextQuestion: () => {},
+  restart: () => {},
 });

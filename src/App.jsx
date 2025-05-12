@@ -5,10 +5,10 @@ import QuizProvider from "./components/QuizProvider.jsx";
 export default function App() {
   return (
     <>
-      <div className="select-none mb-20 mt-10">
+      <div className="select-none mb-10 mt-10">
         <Header appName="React Quiz App" />
       </div>
-      <div className="select-none flex justify-center m-4">
+      <div className="select-none flex justify-center m-4 pb-10">
         <QuizProvider>
           <QuizContent></QuizContent>
         </QuizProvider>

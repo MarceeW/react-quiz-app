@@ -1,27 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useImperativeHandle, useRef, useState } from "react";
 
-export default function TimerProgressBar({ maxTime, onTimeUp, resetTrigger }) {
+export default function TimerProgressBar({
+  ref,
+  maxTime,
+  onTimeUp,
+  resetTrigger,
+}) {
   const [timeLeft, setTimeLeft] = useState(maxTime);
+  const intervalRef = useRef(null);
 
   const timePercent = (timeLeft / maxTime) * 100 + "%";
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        stopTimer() {
+          clearInterval(intervalRef.current);
+        },
+      };
+    },
+    []
+  );
+
+  useEffect(() => {
+    const timeout = setTimeout(onTimeUp, maxTime);
+    return () => clearTimeout(timeout);
+  }, [onTimeUp, maxTime, resetTrigger]);
 
   useEffect(() => {
     const intervalTick = 10;
 
     setTimeLeft(maxTime);
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setTimeLeft((prev) => {
-        const newTime = prev - intervalTick;
-        if (newTime <= 0) {
-          clearInterval(interval);
-          onTimeUp();
+        if (prev == 0) {
+          clearInterval(intervalRef.current);
+          return prev;
         }
+        const newTime = prev - intervalTick;
         return newTime;
       });
     }, intervalTick);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, [maxTime, onTimeUp, resetTrigger]);
 
   return (

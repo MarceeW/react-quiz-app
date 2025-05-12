@@ -1,17 +1,42 @@
+import { useCallback, useContext, useRef, useState } from "react";
 import QuizAnswer from "./QuizAnswer";
-import { QuizContext } from "../contexts/quiz-context";
 import ResultSummary from "./ResultSummary";
-import { useContext } from "react";
+import { QuizContext } from "../contexts/quiz-context";
 
 export default function QuizContent() {
-  const { questions, currentQuestionIdx } = useContext(QuizContext);
+  const { restart } = useContext(QuizContext);
+  const [finished, setFinished] = useState(false);
+  const answerComponentRef = useRef();
+  const answersRef = useRef([]);
 
-  const isFinished = questions.length - 1 === currentQuestionIdx;
+  const onFinish = useCallback((answers) => {
+    setFinished(true);
+    answerComponentRef.current.reset();
+    answersRef.current = answers;
+  }, []);
+
+  const onRestart = useCallback(() => {
+    console.log(answerComponentRef);
+    setFinished(false);
+    restart();
+  }, [restart]);
 
   return (
     <>
-      {!isFinished && <QuizAnswer></QuizAnswer>}
-      {isFinished && <ResultSummary></ResultSummary>}
+      {!finished && (
+        <QuizAnswer
+          ref={answerComponentRef}
+          className="lg:w-2xl"
+          onFinish={onFinish}
+        ></QuizAnswer>
+      )}
+      {finished && (
+        <ResultSummary
+          answers={answersRef.current}
+          onRestart={onRestart}
+          className="lg:w-2xl"
+        ></ResultSummary>
+      )}
     </>
   );
 }
